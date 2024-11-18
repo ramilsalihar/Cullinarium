@@ -1,3 +1,11 @@
+#Firebase files
+firebase.json
+
+# Auto generated files
+*.g.dart
+*.freezed.dart
+*.gr.dart
+
 # Miscellaneous
 *.class
 *.log
