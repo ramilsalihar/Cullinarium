@@ -10,6 +10,7 @@ class App extends StatelessWidget {
 
     return MaterialApp.router(
       title: 'Cullinarium',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
