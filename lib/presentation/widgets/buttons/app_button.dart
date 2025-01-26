@@ -6,10 +6,20 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.title,
     required this.onPressed,
+    this.color,
+    this.textStyle,
+    this.width = 200,
+    this.margin,
+    this.padding,
   });
 
   final String title;
   final VoidCallback onPressed;
+  final Color? color;
+  final TextStyle? textStyle;
+  final double width;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +27,20 @@ class AppButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: 40,
-        width: 200,
-        margin: const EdgeInsets.all(24),
+        width: width,
+        margin: margin ??  const EdgeInsets.all(24),
+        padding: padding ?? const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 5,
+        ),
         decoration: BoxDecoration(
-          color: AppColors.primary,
+          color: color ?? AppColors.primary,
           borderRadius: BorderRadius.circular(24),
         ),
         child: Center(
           child: Text(
             title,
-            style: theme.textTheme.headlineSmall!.copyWith(
+            style: textStyle ?? theme.textTheme.headlineSmall!.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.bold,
             ),

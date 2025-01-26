@@ -10,52 +10,50 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            Image.asset(
-              'assets/layout/background.png',
-              height: size.height,
-              fit: BoxFit.fitHeight,
+    return Scaffold(
+      body: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Image.asset(
+            'assets/layout/background.png',
+            height: size.height,
+            fit: BoxFit.fitHeight,
+          ),
+          Positioned(
+            top: kToolbarHeight * 2,
+            child: Image.asset(
+              'assets/icons/app_logo.png',
+              width: size.width * 0.7,
             ),
-            Positioned(
-              top: kToolbarHeight * 2,
-              child: Image.asset(
-                'assets/icons/app_logo.png',
-                width: size.width * 0.7,
-              ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(
+                  'assets/images/splash_right.png',
+                  height: size.height * 0.4,
+                  fit: BoxFit.fitHeight,
+                ),
+                Image.asset(
+                  'assets/images/splash_left.png',
+                  height: size.height * 0.4,
+                  fit: BoxFit.fitHeight,
+                ),
+              ],
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(
-                    'assets/images/splash_right.png',
-                    height: size.height * 0.4,
-                    fit: BoxFit.fitHeight,
-                  ),
-                  Image.asset(
-                    'assets/images/splash_left.png',
-                    height: size.height * 0.4,
-                    fit: BoxFit.fitHeight,
-                  ),
-                ],
-              ),
+          ),
+          Positioned(
+            bottom: kToolbarHeight,
+            child: AppButton(
+              title: 'Начать',
+              onPressed: () {
+                context.router.pushNamed('/login');
+              },
             ),
-            Positioned(
-              bottom: kToolbarHeight,
-              child: AppButton(
-                title: 'Начать',
-                onPressed: () {
-                  context.router.pushNamed('/login');
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
