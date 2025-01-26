@@ -1,6 +1,5 @@
 import 'package:cullinarium/core/utils/constants/app_font_size.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
 class AppTextTheme extends TextTheme {
@@ -9,20 +8,23 @@ class AppTextTheme extends TextTheme {
     Color? bodyColor,
   }) : super(
     // Display Styles
-    displayLarge: GoogleFonts.inter(
+    displayLarge: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.displayLarge,
       fontWeight: FontWeight.w600,
       letterSpacing: -0.25,
       color: displayColor ?? AppColors.onBackground,
       height: 1.12,
     ),
-    displayMedium: GoogleFonts.inter(
+    displayMedium: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.displayMedium,
       fontWeight: FontWeight.w600,
       color: displayColor ?? AppColors.onBackground,
       height: 1.16,
     ),
-    displaySmall: GoogleFonts.inter(
+    displaySmall: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.displaySmall,
       fontWeight: FontWeight.w600,
       color: displayColor ?? AppColors.onBackground,
@@ -30,19 +32,22 @@ class AppTextTheme extends TextTheme {
     ),
 
     // Headline Styles
-    headlineLarge: GoogleFonts.inter(
+    headlineLarge: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.headlineLarge,
       fontWeight: FontWeight.w400,
       color: displayColor ?? AppColors.onBackground,
       height: 1.25,
     ),
-    headlineMedium: GoogleFonts.inter(
+    headlineMedium: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.headlineMedium,
       fontWeight: FontWeight.w400,
       color: displayColor ?? AppColors.onBackground,
       height: 1.29,
     ),
-    headlineSmall: GoogleFonts.inter(
+    headlineSmall: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.headlineSmall,
       fontWeight: FontWeight.w400,
       color: displayColor ?? AppColors.onBackground,
@@ -50,20 +55,23 @@ class AppTextTheme extends TextTheme {
     ),
 
     // Title Styles
-    titleLarge: GoogleFonts.inter(
+    titleLarge: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.titleLarge,
       fontWeight: FontWeight.w400,
       color: bodyColor ?? AppColors.onBackground,
       height: 1.27,
     ),
-    titleMedium: GoogleFonts.inter(
+    titleMedium: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.titleMedium,
       fontWeight: FontWeight.w400,
       letterSpacing: 0.15,
       color: bodyColor ?? AppColors.onBackground,
       height: 1.50,
     ),
-    titleSmall: GoogleFonts.inter(
+    titleSmall: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.titleSmall,
       fontWeight: FontWeight.w400,
       letterSpacing: 0.1,
@@ -72,21 +80,24 @@ class AppTextTheme extends TextTheme {
     ),
 
     // Label Styles
-    labelLarge: GoogleFonts.inter(
+    labelLarge: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.labelLarge,
       fontWeight: FontWeight.w500,
       letterSpacing: 0.1,
       color: bodyColor ?? AppColors.onBackground,
       height: 1.43,
     ),
-    labelMedium: GoogleFonts.inter(
+    labelMedium: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.labelMedium,
       fontWeight: FontWeight.w500,
       letterSpacing: 0.5,
       color: bodyColor ?? AppColors.onBackground,
       height: 1.33,
     ),
-    labelSmall: GoogleFonts.inter(
+    labelSmall: TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.labelSmall,
       fontWeight: FontWeight.w500,
       letterSpacing: 0.5,
@@ -103,7 +114,8 @@ class AppTextTheme extends TextTheme {
   }
 
   TextStyle customSubtitle({Color? color}) {
-    return GoogleFonts.inter(
+    return TextStyle(
+      fontFamily: 'Gotham',
       fontSize: AppFontSize.labelMedium,
       fontWeight: FontWeight.w600,
       color: color ?? AppColors.onBackground,
