@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cullinarium/presentation/pages/auth/login_page.dart';
 import 'package:cullinarium/presentation/pages/auth/signup_page.dart';
 import 'package:cullinarium/presentation/pages/auth/splash_screen.dart';
-import 'package:cullinarium/presentation/pages/home_page.dart';
+import 'package:cullinarium/presentation/pages/home/home_page.dart';
 
 part 'app_router.gr.dart';
 

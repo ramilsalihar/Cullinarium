@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:cullinarium/core/navigation/app_router.dart';
 import 'package:cullinarium/presentation/pages/auth/widgets/user_switch.dart';
 import 'package:cullinarium/presentation/widgets/buttons/app_button.dart';
 import 'package:cullinarium/presentation/widgets/forms/app_text_form_field.dart';
@@ -103,7 +104,9 @@ class _LoginPageState extends State<LoginPage> {
                   AppButton(
                     title: 'Войти',
                     color: Colors.black,
-                    onPressed: () {},
+                    onPressed: () {
+                      context.router.replaceAll([const HomeRoute()]);
+                    },
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
