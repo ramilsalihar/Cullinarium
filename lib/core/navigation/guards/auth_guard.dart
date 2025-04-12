@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cullinarium/data/datasources/auth%20/auth_service.dart';
+import 'package:cullinarium/features/authentication/data/auth_service.dart';
 
 class AuthGuard extends AutoRouteGuard {
   final AuthService _authService;

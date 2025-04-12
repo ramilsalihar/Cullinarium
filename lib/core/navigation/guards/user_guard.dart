@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cullinarium/data/datasources/auth%20/auth_service.dart';
+import 'package:cullinarium/features/authentication/data/auth_service.dart';
 
 class UserGuard extends AutoRouteGuard {
   final AuthService _authService;
@@ -7,7 +7,8 @@ class UserGuard extends AutoRouteGuard {
   UserGuard(this._authService);
 
   @override
-  Future<bool> onNavigation(NavigationResolver resolver, StackRouter router) async {
+  Future<bool> onNavigation(
+      NavigationResolver resolver, StackRouter router) async {
     // final currentUser = await _authService.getCurrentUser();
     //
     // if (currentUser?.role != UserRole.customer) {

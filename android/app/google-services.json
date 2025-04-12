@@ -1,13 +1,32 @@
 {
   "project_info": {
-    "project_number": "190144091387",
-    "project_id": "cullinarium-202ec",
-    "storage_bucket": "cullinarium-202ec.firebasestorage.app"
+    "project_number": "650587028242",
+    "project_id": "culinarium-baed0",
+    "storage_bucket": "culinarium-baed0.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:190144091387:android:aabb109b9a6787aabecc5e",
+        "mobilesdk_app_id": "1:650587028242:android:84371b22d72faa3fe051cb",
+        "android_client_info": {
+          "package_name": "com.culinarium.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR7fpXN1NT0JHf3u9iQq6eraJ72Ei6_Uk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650587028242:android:f705e9485f258babe051cb",
         "android_client_info": {
           "package_name": "com.example.cullinarium"
         }
@@ -15,7 +34,26 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBhtKN8ho3cYhsWE2Yp9CfbDeaHF48-7gg"
+          "current_key": "AIzaSyDR7fpXN1NT0JHf3u9iQq6eraJ72Ei6_Uk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650587028242:android:e179cb4e748ffe1be051cb",
+        "android_client_info": {
+          "package_name": "com.mrblab.prime_lms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR7fpXN1NT0JHf3u9iQq6eraJ72Ei6_Uk"
         }
       ],
       "services": {

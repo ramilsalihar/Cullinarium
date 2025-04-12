@@ -41,29 +41,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDslX_XxFh002xN1-iBnMJuz83nuUY7R2c',
-    appId: '1:190144091387:web:83756eb263f25dc6becc5e',
-    messagingSenderId: '190144091387',
-    projectId: 'cullinarium-202ec',
-    authDomain: 'cullinarium-202ec.firebaseapp.com',
-    storageBucket: 'cullinarium-202ec.firebasestorage.app',
-    measurementId: 'G-CDJNFZSX71',
+    apiKey: 'AIzaSyDHAOirq-w1YUFozeK9XnZKZi_v3VsZ5SQ',
+    appId: '1:650587028242:web:436c4fcde9f2a180e051cb',
+    messagingSenderId: '650587028242',
+    projectId: 'culinarium-baed0',
+    authDomain: 'culinarium-baed0.firebaseapp.com',
+    storageBucket: 'culinarium-baed0.firebasestorage.app',
+    measurementId: 'G-7H25Z4R6W6',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBhtKN8ho3cYhsWE2Yp9CfbDeaHF48-7gg',
-    appId: '1:190144091387:android:aabb109b9a6787aabecc5e',
-    messagingSenderId: '190144091387',
-    projectId: 'cullinarium-202ec',
-    storageBucket: 'cullinarium-202ec.firebasestorage.app',
+    apiKey: 'AIzaSyDR7fpXN1NT0JHf3u9iQq6eraJ72Ei6_Uk',
+    appId: '1:650587028242:android:f705e9485f258babe051cb',
+    messagingSenderId: '650587028242',
+    projectId: 'culinarium-baed0',
+    storageBucket: 'culinarium-baed0.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDOZ15UUmGFcCpeokQEdCp-L6HXV1Y5h9A',
-    appId: '1:190144091387:ios:07a5a7790e78b798becc5e',
-    messagingSenderId: '190144091387',
-    projectId: 'cullinarium-202ec',
-    storageBucket: 'cullinarium-202ec.firebasestorage.app',
+    apiKey: 'AIzaSyC9SkiGPKWIMmZCc22cxawUFP_HPdS-4zw',
+    appId: '1:650587028242:ios:d1babf272c8f389fe051cb',
+    messagingSenderId: '650587028242',
+    projectId: 'culinarium-baed0',
+    storageBucket: 'culinarium-baed0.firebasestorage.app',
     iosBundleId: 'com.example.cullinarium',
   );
 

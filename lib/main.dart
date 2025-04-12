@@ -1,5 +1,5 @@
 import 'package:cullinarium/firebase_options.dart';
-import 'package:cullinarium/presentation/app.dart';
+import 'package:cullinarium/features/app/presentation/app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
