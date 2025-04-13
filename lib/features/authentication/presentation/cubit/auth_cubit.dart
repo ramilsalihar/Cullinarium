@@ -14,7 +14,9 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> loadInitialData() async {
     final stableState = state;
     try {
-      emit(state.copyWith(isLoading: true));
+      emit(
+        state.copyWith(isLoading: true),
+      );
 
       // Check if user is already logged in
       final currentUser = await _authService.getCurrentUserData();
@@ -26,14 +28,24 @@ class AuthCubit extends Cubit<AuthState> {
           isLoading: false,
         ));
       } else {
-        emit(state.copyWith(
-          isAuthenticated: false,
-          isLoading: false,
-        ));
+        emit(
+          state.copyWith(
+            isAuthenticated: false,
+            isLoading: false,
+          ),
+        );
       }
     } catch (error) {
-      emit(state.copyWith(error: error.toString()));
-      emit(stableState.copyWith(isLoading: false));
+      emit(
+        state.copyWith(
+          error: error.toString(),
+        ),
+      );
+      emit(
+        stableState.copyWith(
+          isLoading: false,
+        ),
+      );
     }
   }
 
@@ -45,7 +57,12 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     final stableState = state;
     try {
-      emit(state.copyWith(isLoading: true, error: null));
+      emit(
+        state.copyWith(
+          isLoading: true,
+          error: null,
+        ),
+      );
 
       final user = await _authService.signUp(
         email: email,
@@ -54,15 +71,26 @@ class AuthCubit extends Cubit<AuthState> {
         role: role,
       );
 
-      emit(state.copyWith(
-        isAuthenticated: true,
-        user: user,
-        isLoading: false,
-      ));
+      emit(
+        state.copyWith(
+          isAuthenticated: true,
+          user: user,
+          isLoading: false,
+        ),
+      );
     } catch (error) {
-      print(' ----- ${error}');
-      emit(state.copyWith(error: error.toString(), isLoading: false));
-      emit(stableState.copyWith(isLoading: false, error: error.toString()));
+      emit(
+        state.copyWith(
+          error: error.toString(),
+          isLoading: false,
+        ),
+      );
+      emit(
+        stableState.copyWith(
+          isLoading: false,
+          error: error.toString(),
+        ),
+      );
     }
   }
 
@@ -72,21 +100,38 @@ class AuthCubit extends Cubit<AuthState> {
   }) async {
     final stableState = state;
     try {
-      emit(state.copyWith(isLoading: true, error: null));
+      emit(
+        state.copyWith(
+          isLoading: true,
+          error: null,
+        ),
+      );
 
       final user = await _authService.signIn(
         email: email,
         password: password,
       );
 
-      emit(state.copyWith(
-        isAuthenticated: true,
-        user: user,
-        isLoading: false,
-      ));
+      emit(
+        state.copyWith(
+          isAuthenticated: true,
+          user: user,
+          isLoading: false,
+        ),
+      );
     } catch (error) {
-      emit(state.copyWith(error: error.toString(), isLoading: false));
-      emit(stableState.copyWith(isLoading: false, error: error.toString()));
+      emit(
+        state.copyWith(
+          error: error.toString(),
+          isLoading: false,
+        ),
+      );
+      emit(
+        stableState.copyWith(
+          isLoading: false,
+          error: error.toString(),
+        ),
+      );
     }
   }
 

@@ -1,9 +1,7 @@
-import 'package:cullinarium/features/authentication/data/models/auth_model.dart';
-
 class AuthState {
   final bool isLoading;
   final bool isAuthenticated;
-  final AuthModel? user;
+  final dynamic user;
   final String? error;
   final bool isResetEmailSent;
 
@@ -18,7 +16,7 @@ class AuthState {
   AuthState copyWith({
     bool? isLoading,
     bool? isAuthenticated,
-    AuthModel? user,
+    dynamic user,
     String? error,
     bool? isResetEmailSent,
   }) {

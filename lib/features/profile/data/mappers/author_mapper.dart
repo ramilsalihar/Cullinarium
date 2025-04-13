@@ -23,9 +23,13 @@ class AuthorMapper {
       email: json['email'],
       role: json['role'],
       createdAt: json['createdAt'],
-      profile: ProfileMapper.fromJson(json['profile']),
-      courses: (json['courses'] as List<dynamic>).cast<String>(),
-      recipes: (json['recipes'] as List<dynamic>).cast<String>(),
+      profile: json['profile'] != null
+          ? ProfileMapper.fromJson(json['profile'])
+          : null,
+      courses:
+          json['courses'] != null ? List<String>.from(json['courses']) : null,
+      recipes:
+          json['recipes'] != null ? List<String>.from(json['recipes']) : null,
     );
   }
 }

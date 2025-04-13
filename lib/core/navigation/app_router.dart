@@ -2,7 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cullinarium/features/authentication/presentation/pages/login_page.dart';
 import 'package:cullinarium/features/authentication/presentation/pages/signup_page.dart';
 import 'package:cullinarium/features/authentication/presentation/splash_screen.dart';
-import 'package:cullinarium/features/home/presentation/home_page.dart';
+import 'package:cullinarium/features/home/presentation/pages/home_page.dart';
+import 'package:cullinarium/features/profile/presentation/pages/profile_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -27,6 +28,10 @@ class AppRouter extends RootStackRouter {
         AutoRoute(
           page: HomeRoute.page,
           path: '/home',
+        ),
+        AutoRoute(
+          page: ProfileRoute.page,
+          path: '/profile',
         ),
       ];
 }

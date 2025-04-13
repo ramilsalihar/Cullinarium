@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:cullinarium/core/widgets/buttons/app_button.dart';
 import 'package:cullinarium/features/authentication/presentation/widgets/forms/sign_up_form.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,14 @@ class _SignupPageState extends State<SignupPage> {
     return Column(
       children: [
         const SizedBox(height: kToolbarHeight * 4),
+        IconButton(
+            onPressed: () {
+              context.router.pushNamed('/login');
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.black,
+            )),
         AppButton(
           title: 'User',
           onPressed: () {

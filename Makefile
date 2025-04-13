@@ -17,6 +17,7 @@ help:
 	@echo "  pods        - Reinstall iOS pods (slow)"
 	@echo "  xcode       - Open Xcode workspace"
 	@echo "  kill        - Kill all Dart/Flutter processes"
+	@echo "  generate    - Run build_runner to generate code"
 
 .PHONY: clean
 clean:
@@ -67,3 +68,9 @@ kill:
 	@pkill -f Dart || true
 	@pkill -f flutter || true
 	@echo "✅ Done."
+
+.PHONY: generate
+generate:
+	@echo "Generating code with build_runner..."
+	@$(FLUTTER) pub run build_runner build --delete-conflicting-outputs
+	@echo "✅ Code generation complete."

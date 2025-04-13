@@ -1,6 +1,9 @@
 import 'package:cullinarium/core/utils/constants/app_consts.dart';
 import 'package:cullinarium/features/authentication/data/mappers/auth_mapper.dart';
 import 'package:cullinarium/features/authentication/data/models/auth_model.dart';
+import 'package:cullinarium/features/profile/data/mappers/author_mapper.dart';
+import 'package:cullinarium/features/profile/data/mappers/chef_mapper.dart';
+import 'package:cullinarium/features/profile/data/mappers/user_mapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -14,7 +17,7 @@ class AuthService {
   User? get currentUser => _auth.currentUser;
 
   // Sign up with email and password
-  Future<AuthModel> signUp({
+  Future<dynamic> signUp({
     required String email,
     required String password,
     required String name,
@@ -44,70 +47,98 @@ class AuthService {
 
       String dataType = '';
       dynamic data;
+      dynamic userData;
+      // Map role to Firestore collection
 
       switch (role) {
         case 'chef':
           dataType = AppConsts.chefsCollection;
           data = AuthMapper.toChef(authModel);
+          userData = AuthMapper.fromJsonToChef(authModel);
           break;
         case 'author':
           dataType = AppConsts.authorsCollection;
           data = AuthMapper.toAuthor(authModel);
+          userData = AuthMapper.fromJsonToAuthor(authModel);
           break;
         case 'user':
           dataType = AppConsts.usersCollection;
           data = AuthMapper.toUser(authModel);
+          userData = AuthMapper.fromJsonToUser(authModel);
           break;
         default:
           dataType = AppConsts.usersCollection;
           data = AuthMapper.toJson(authModel);
+          userData = AuthMapper.fromJsonToUser(authModel);
           break;
       }
       // Save user data to Firestore
       await _firestore.collection(dataType).doc(user.uid).set(data);
 
-      return authModel;
+      return userData;
     } catch (e) {
       throw _handleAuthException(e);
     }
   }
 
   // Sign in with email and password
-  Future<AuthModel> signIn({
+  Future<dynamic> signIn({
     required String email,
     required String password,
   }) async {
     try {
-      // Sign in user with email and password
       UserCredential result = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
       User? user = result.user;
-
       if (user == null) {
         throw Exception('Failed to sign in');
       }
 
-      // Get user data from Firestore
-      DocumentSnapshot doc =
-          await _firestore.collection('users').doc(user.uid).get();
+      dynamic userData;
 
-      if (!doc.exists) {
-        throw Exception('User data not found');
+      final possibleCollections = [
+        AppConsts.chefsCollection,
+        AppConsts.authorsCollection,
+        AppConsts.usersCollection,
+      ];
+
+      DocumentSnapshot? userDoc;
+
+      for (final collection in possibleCollections) {
+        final doc = await _firestore.collection(collection).doc(user.uid).get();
+        if (doc.exists) {
+          userDoc = doc;
+          break;
+        }
       }
 
-      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      if (userDoc == null || !userDoc.exists) {
+        throw Exception('User data not found in any collection');
+      }
 
-      // Create and return AuthModel
-      return AuthModel(
-        id: user.uid,
-        name: data['name'] ?? '',
-        email: data['email'] ?? '',
-        role: data['role'] ?? '',
-        createdAt: data['createdAt']?.toDate().toIso8601String() ?? '',
-      );
+      if (userDoc.exists) {
+        Map<String, dynamic> data = userDoc.data() as Map<String, dynamic>;
+        switch (data['role']) {
+          case 'chef':
+            userData = ChefMapper.fromJson(data);
+            break;
+          case 'author':
+            userData = AuthorMapper.fromJson(data);
+            break;
+          case 'user':
+            userData = UserMapper.fromJson(data);
+            break;
+          default:
+            userData = AuthMapper.fromJson(data);
+        }
+      }
+
+      print('User data: $userData');
+
+      return userData;
     } catch (e) {
       throw _handleAuthException(e);
     }

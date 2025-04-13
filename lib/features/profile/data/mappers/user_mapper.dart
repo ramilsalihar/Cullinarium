@@ -19,7 +19,9 @@ class UserMapper {
       email: json['email'],
       role: json['role'],
       createdAt: json['createdAt'],
-      preferences: (json['preferences'] as List<dynamic>).cast<String>(),
+      preferences: json['preferences'] != null
+          ? (json['preferences'] as List<dynamic>).cast<String>()
+          : null,
     );
   }
 }

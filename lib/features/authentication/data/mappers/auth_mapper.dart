@@ -41,8 +41,8 @@ class AuthMapper {
       'email': data.email,
       'role': data.role,
       'createdAt': data.createdAt,
-      'profile': {},
-      'chefDetails': {},
+      'profile': null,
+      'chefDetails': null,
     };
   }
 
@@ -63,9 +63,9 @@ class AuthMapper {
       'email': data.email,
       'role': data.role,
       'createdAt': data.createdAt,
-      'profile': {},
-      'courses': [],
-      'recipes': [],
+      'profile': null,
+      'courses': null,
+      'recipes': null,
     };
   }
 
@@ -86,7 +86,7 @@ class AuthMapper {
       'email': data.email,
       'role': data.role,
       'createdAt': data.createdAt,
-      'preferences': [],
+      'preferences': null,
     };
   }
 }

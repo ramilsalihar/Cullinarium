@@ -39,13 +39,16 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: CircleAvatar(
-              radius: 20,
-              backgroundImage: AssetImage(
-                'assets/temp/profile.png',
+        actions: [
+          GestureDetector(
+            onTap: () => context.router.pushNamed('/profile'),
+            child: const Padding(
+              padding: EdgeInsets.only(right: 16),
+              child: CircleAvatar(
+                radius: 20,
+                backgroundImage: AssetImage(
+                  'assets/temp/profile.png',
+                ),
               ),
             ),
           ),
@@ -75,7 +78,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 20),
               const CategoryList(),
               const SizedBox(height: 20),
-              const PopularFoodList()
+              // const PopularFoodList()
             ],
           ),
         ),

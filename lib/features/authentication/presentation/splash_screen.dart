@@ -48,7 +48,7 @@ class SplashScreen extends StatelessWidget {
             child: AppButton(
               title: 'Начать',
               onPressed: () {
-                context.router.pushNamed('/login');
+                context.router.pushNamed('/home');
               },
             ),
           ),

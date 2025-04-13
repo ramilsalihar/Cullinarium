@@ -25,8 +25,12 @@ class ChefMapper {
       email: json['email'],
       role: json['role'],
       createdAt: json['createdAt'],
-      profile: ProfileMapper.fromJson(json['profile']),
-      chefDetails: ChefDetailsMapper.fromJson(json['chefDetails']),
+      profile: json['profile'] != null
+          ? ProfileMapper.fromJson(json['profile'])
+          : null,
+      chefDetails: json['chefDetails'] != null
+          ? ChefDetailsMapper.fromJson(json['chefDetails'])
+          : null,
     );
   }
 }
