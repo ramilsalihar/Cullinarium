@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cullinarium/core/navigation/app_router.dart';
 import 'package:cullinarium/features/authentication/auth_injection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,8 +16,7 @@ void injections() {
 
 void setupFirebaseService() {
   sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
-  // sl.registerLazySingleton<AuthenticationService>(() => AuthenticationService());
-  // sl.registerLazySingleton<FirestoreService>(() => FirestoreService());
+  sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
   // sl.registerLazySingleton<StorageService>(() => StorageService());
   // sl.registerLazySingleton<MessagingService>(() => MessagingService());
 }

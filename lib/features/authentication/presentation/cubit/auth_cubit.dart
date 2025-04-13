@@ -41,7 +41,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String email,
     required String password,
     required String name,
-    required String type,
+    required String role,
   }) async {
     final stableState = state;
     try {
@@ -51,7 +51,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
         name: name,
-        type: type,
+        role: role,
       );
 
       emit(state.copyWith(

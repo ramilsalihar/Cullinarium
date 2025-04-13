@@ -6,6 +6,7 @@ void authInjection() {
   // Register DataSource
   sl.registerLazySingleton<AuthService>(() => AuthService(
         sl(),
+        sl(),
       ));
 
   // Register Cubit

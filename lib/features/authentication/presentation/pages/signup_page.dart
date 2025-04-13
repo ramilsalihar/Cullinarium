@@ -29,7 +29,7 @@ class _SignupPageState extends State<SignupPage> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(), // prevent swipe
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           // Page 1 - Buttons
           buildButtons(),

@@ -1,12 +1,14 @@
+import 'package:cullinarium/core/utils/constants/app_consts.dart';
+import 'package:cullinarium/features/authentication/data/mappers/auth_mapper.dart';
 import 'package:cullinarium/features/authentication/data/models/auth_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService {
   final FirebaseAuth _auth;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore;
 
-  AuthService(this._auth);
+  AuthService(this._auth, this._firestore);
 
   // Get current authenticated user
   User? get currentUser => _auth.currentUser;
@@ -16,7 +18,7 @@ class AuthService {
     required String email,
     required String password,
     required String name,
-    required String type,
+    required String role,
   }) async {
     try {
       // Create user with email and password
@@ -24,8 +26,6 @@ class AuthService {
         email: email,
         password: password,
       );
-
-      print('User created: ${result.user?.uid}');
 
       User? user = result.user;
 
@@ -38,16 +38,33 @@ class AuthService {
         id: user.uid,
         name: name,
         email: email,
-        type: type,
+        role: role,
+        createdAt: DateTime.now().toIso8601String(),
       );
 
+      String dataType = '';
+      dynamic data;
+
+      switch (role) {
+        case 'chef':
+          dataType = AppConsts.chefsCollection;
+          data = AuthMapper.toChef(authModel);
+          break;
+        case 'author':
+          dataType = AppConsts.authorsCollection;
+          data = AuthMapper.toAuthor(authModel);
+          break;
+        case 'user':
+          dataType = AppConsts.usersCollection;
+          data = AuthMapper.toUser(authModel);
+          break;
+        default:
+          dataType = AppConsts.usersCollection;
+          data = AuthMapper.toJson(authModel);
+          break;
+      }
       // Save user data to Firestore
-      await _firestore.collection('users').doc(user.uid).set({
-        'name': name,
-        'email': email,
-        'type': type,
-        'createdAt': FieldValue.serverTimestamp(),
-      });
+      await _firestore.collection(dataType).doc(user.uid).set(data);
 
       return authModel;
     } catch (e) {
@@ -88,7 +105,8 @@ class AuthService {
         id: user.uid,
         name: data['name'] ?? '',
         email: data['email'] ?? '',
-        type: data['type'] ?? '',
+        role: data['role'] ?? '',
+        createdAt: data['createdAt']?.toDate().toIso8601String() ?? '',
       );
     } catch (e) {
       throw _handleAuthException(e);
@@ -154,7 +172,8 @@ class AuthService {
         id: user.uid,
         name: data['name'] ?? '',
         email: data['email'] ?? '',
-        type: data['type'] ?? '',
+        role: data['role'] ?? '',
+        createdAt: data['createdAt']?.toDate().toIso8601String() ?? '',
       );
     } catch (e) {
       throw _handleAuthException(e);

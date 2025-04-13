@@ -34,7 +34,7 @@ class _SignUpFormState extends State<SignUpForm> {
             email: emailController.text,
             password: passwordController.text,
             name: nameController.text,
-            type: widget.role,
+            role: widget.role,
           );
     }
   }
@@ -56,8 +56,9 @@ class _SignUpFormState extends State<SignUpForm> {
         }
 
         if (state.isAuthenticated) {
+          print('User authenticated: ${state.user!.name}');
           // Navigate to home or profile completion page
-          Navigator.of(context).pushReplacementNamed('/home');
+          // Navigator.of(context).pushReplacementNamed('/home');
         }
       },
       builder: (context, state) {
@@ -66,9 +67,15 @@ class _SignUpFormState extends State<SignUpForm> {
           child: Column(
             children: [
               const SizedBox(height: kToolbarHeight * 0.5),
+              IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                ),
+              ),
               const SizedBox(height: kToolbarHeight * 0.7),
               Text(
-                'Регистрация',
+                'Register as ${widget.role}',
                 style: theme.textTheme.labelLarge,
               ),
               const SizedBox(height: kToolbarHeight * 0.5),
