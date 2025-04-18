@@ -66,6 +66,18 @@ class _ProfileBackgroundState extends State<ProfileBackground>
         ),
         Positioned(
           top: kToolbarHeight,
+          right: 60,
+          child: IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.edit,
+              color: Colors.white,
+              size: 30,
+            ),
+          ),
+        ),
+        Positioned(
+          top: kToolbarHeight,
           right: 20,
           child: IconButton(
             onPressed: () => _handleLogout(),

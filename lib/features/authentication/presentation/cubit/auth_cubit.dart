@@ -1,10 +1,6 @@
 import 'dart:async';
 
 import 'package:cullinarium/features/authentication/data/datasource/remote/auth_service.dart';
-import 'package:cullinarium/features/profile/data/mappers/author_mapper.dart';
-import 'package:cullinarium/features/profile/data/models/author_model.dart';
-import 'package:cullinarium/features/profile/data/models/chefs/chef_model.dart';
-import 'package:cullinarium/features/profile/data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cullinarium/features/authentication/presentation/cubit/auth_state.dart';
@@ -25,25 +21,11 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(state.copyWith(isLoading: true));
       var currentUser = await _authService.getCurrentUserData();
-      var user;
-
-      if (currentUser is ChefModel) {
-        user = currentUser as ChefModel;
-        print('---------------');
-        print(user.name);
-      } else if (currentUser is AuthorModel) {
-        user = currentUser as AuthorModel;
-        print(user.name);
-      } else if (currentUser is UserModel) {
-        user = currentUser as UserModel;
-        print('---------------');
-        print(user.name);
-      }
 
       if (currentUser != null) {
         emit(state.copyWith(
           isAuthenticated: true,
-          user: user,
+          user: currentUser,
           isLoading: false,
         ));
       } else {
