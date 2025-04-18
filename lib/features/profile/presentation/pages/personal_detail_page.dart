@@ -40,7 +40,6 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
     _jobExperienceController =
         TextEditingController(text: profile?.jobExperience?.toString() ?? '');
     _locationController = TextEditingController(text: profile?.location ?? '');
-    _phoneController = TextEditingController(text: profile?.phoneNumber ?? '');
     _instagramController =
         TextEditingController(text: profile?.instagram ?? '');
     _selectedCategories = profile?.categories?.toList() ?? [];
@@ -131,7 +130,6 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
           const Text('No languages specified'),
         const SizedBox(height: 16),
         _buildSectionTitle('Contact Information'),
-        _buildInfoRow('Phone', profile.phoneNumber ?? 'Not provided'),
         if (profile.instagram != null && profile.instagram!.isNotEmpty)
           _buildInfoRow('Instagram', '@${profile.instagram}'),
         const SizedBox(height: 24),
@@ -470,7 +468,6 @@ class _PersonalDetailPageState extends State<PersonalDetailPage> {
       description: _descriptionController.text,
       jobExperience: int.tryParse(_jobExperienceController.text) ?? 0,
       location: _locationController.text,
-      phoneNumber: _phoneController.text,
       instagram: _instagramController.text,
     );
 

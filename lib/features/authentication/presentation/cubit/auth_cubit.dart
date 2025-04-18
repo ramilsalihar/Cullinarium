@@ -46,6 +46,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String password,
     required String name,
     required String role,
+    required String phoneNumber,
   }) async {
     final stableState = state;
     try {
@@ -55,6 +56,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
         name: name,
+        phoneNumber: phoneNumber,
         role: role,
       );
 

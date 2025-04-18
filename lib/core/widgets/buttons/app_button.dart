@@ -28,11 +28,12 @@ class AppButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         width: width,
-        margin: margin ??  const EdgeInsets.all(24),
-        padding: padding ?? const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 5,
-        ),
+        margin: margin ?? const EdgeInsets.all(24),
+        padding: padding ??
+            const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 10,
+            ),
         decoration: BoxDecoration(
           color: color ?? AppColors.primary,
           borderRadius: BorderRadius.circular(24),
@@ -40,10 +41,11 @@ class AppButton extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: textStyle ?? theme.textTheme.headlineSmall!.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+            style: textStyle ??
+                theme.textTheme.headlineSmall!.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
         ),
       ),

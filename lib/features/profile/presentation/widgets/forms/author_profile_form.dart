@@ -42,7 +42,6 @@ class _AuthorProfileFormState extends State<AuthorProfileForm> {
     _jobExperienceController =
         TextEditingController(text: profile?.jobExperience?.toString() ?? '');
     _locationController = TextEditingController(text: profile?.location ?? '');
-    _phoneController = TextEditingController(text: profile?.phoneNumber ?? '');
     _instagramController =
         TextEditingController(text: profile?.instagram ?? '');
     _selectedCategories = profile?.categories?.toList() ?? [];
@@ -136,7 +135,6 @@ class _AuthorProfileFormState extends State<AuthorProfileForm> {
           const Text('No languages specified'),
         const SizedBox(height: 16),
         _buildSectionTitle('Contact Information'),
-        _buildInfoRow('Phone', profile.phoneNumber ?? 'Not provided'),
         if (profile.instagram != null && profile.instagram!.isNotEmpty)
           _buildInfoRow('Instagram', '@${profile.instagram}'),
         const SizedBox(height: 24),

@@ -9,6 +9,7 @@ class ChefMapper {
       'name': chef.name,
       'email': chef.email,
       'role': chef.role,
+      'phoneNumber': chef.phoneNumber,
       'createdAt': chef.createdAt,
       'profile':
           chef.profile != null ? ProfileMapper.toJson(chef.profile!) : null,
@@ -24,6 +25,7 @@ class ChefMapper {
       name: json['name'],
       email: json['email'],
       role: json['role'],
+      phoneNumber: json['phoneNumber'],
       createdAt: json['createdAt'],
       profile: json['profile'] != null
           ? ProfileMapper.fromJson(json['profile'])

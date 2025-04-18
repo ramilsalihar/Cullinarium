@@ -3,6 +3,7 @@ class AuthModel {
   final String name;
   final String email;
   final String role;
+  final String phoneNumber;
   final String createdAt;
 
   const AuthModel({
@@ -10,6 +11,7 @@ class AuthModel {
     required this.name,
     required this.email,
     required this.role,
+    required this.phoneNumber,
     required this.createdAt,
   });
 }

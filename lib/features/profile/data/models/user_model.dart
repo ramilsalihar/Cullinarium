@@ -4,6 +4,7 @@ class UserModel {
   final String email;
   final String role;
   final String createdAt;
+  final String phoneNumber;
   final List<String>? preferences;
 
   const UserModel({
@@ -12,6 +13,7 @@ class UserModel {
     required this.email,
     required this.role,
     required this.createdAt,
+    required this.phoneNumber,
     this.preferences,
   });
 }

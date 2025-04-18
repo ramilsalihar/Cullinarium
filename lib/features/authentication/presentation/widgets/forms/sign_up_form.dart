@@ -1,3 +1,6 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:cullinarium/core/theme/app_colors.dart';
+import 'package:cullinarium/core/utils/snackbars/app_snackbars.dart';
 import 'package:cullinarium/core/widgets/buttons/app_button.dart';
 import 'package:cullinarium/core/widgets/forms/app_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +17,11 @@ class SignUpForm extends StatefulWidget {
   State<SignUpForm> createState() => _SignUpFormState();
 }
 
-class _SignUpFormState extends State<SignUpForm> {
+class _SignUpFormState extends State<SignUpForm> with AppSnackbars {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final phoneController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -25,105 +29,129 @@ class _SignUpFormState extends State<SignUpForm> {
     nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    phoneController.dispose();
     super.dispose();
   }
 
   void _signup() {
+    final name = nameController.text.trim();
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+    final phone = phoneController.text.trim();
+
+    if (name.isEmpty || email.isEmpty || password.isEmpty || phone.isEmpty) {
+      showErrorSnackbar(
+        context: context,
+        message: 'Пожалуйста, заполните все поля',
+      );
+      return;
+    }
+
     if (_formKey.currentState?.validate() ?? false) {
       context.read<AuthCubit>().signUp(
-            email: emailController.text,
-            password: passwordController.text,
-            name: nameController.text,
+            email: email,
+            password: password,
+            phoneNumber: phone,
+            name: name,
             role: widget.role,
           );
+    }
+  }
+
+  String getUserType() {
+    switch (widget.role) {
+      case 'guest':
+        return 'Гость';
+      case 'chef':
+        return 'Шеф-повар';
+      case 'author':
+        return 'Автор';
+      case 'user':
+        return 'Пользователь';
+      default:
+        return '';
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
 
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.error != null) {
-          // Show error message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.error!),
-              backgroundColor: Colors.red,
-            ),
+          showErrorSnackbar(
+            context: context,
+            message: state.error!,
           );
-        }
-
-        if (state.isAuthenticated) {
-          print('User authenticated: ${state.user!.name}');
-          // Navigate to home or profile completion page
-          // Navigator.of(context).pushReplacementNamed('/home');
         }
       },
       builder: (context, state) {
         return Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: kToolbarHeight * 0.5),
-              IconButton(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: Icon(
-                  Icons.arrow_back_ios,
+              const SizedBox(height: kToolbarHeight),
+              GestureDetector(
+                onTap: () => context.router.back(),
+                child: const Icon(
+                  Icons.arrow_back_ios_new_outlined,
+                  color: Colors.black,
                 ),
               ),
               const SizedBox(height: kToolbarHeight * 0.7),
-              Text(
-                'Register as ${widget.role}',
-                style: theme.textTheme.labelLarge,
+              RichText(
+                text: TextSpan(
+                  text: 'Зарегистрироваться как ',
+                  style: theme.textTheme.displayLarge!.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: getUserType(),
+                      style: theme.textTheme.displayLarge!.copyWith(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: kToolbarHeight * 0.5),
+              const SizedBox(height: kToolbarHeight),
               AppTextFormField(
                 title: 'Ф.И.О',
                 controller: nameController,
-                // validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'Пожалуйста, введите ваше Ф.И.О';
-                //   }
-                //   return null;
-                // },
               ),
               const SizedBox(height: 16),
               AppTextFormField(
-                title: 'Email',
+                title: 'Электронная почта',
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
-                // validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'Пожалуйста, введите email';
-                //   }
-                //   if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                //     return 'Пожалуйста, введите корректный email';
-                //   }
-                //   return null;
-                // },
+              ),
+              const SizedBox(height: 16),
+              AppTextFormField(
+                title: 'Телефон',
+                controller: phoneController,
+                keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16),
               AppTextFormField(
                 title: 'Пароль',
                 controller: passwordController,
                 obscureText: true,
-                // validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return 'Пожалуйста, введите пароль';
-                //   }
-                //   if (value.length < 6) {
-                //     return 'Пароль должен содержать минимум 6 символов';
-                //   }
-                //   return null;
-                // },
               ),
-              const SizedBox(height: 16),
-              AppButton(
-                title: state.isLoading ? 'Загрузка...' : 'Создать',
-                color: Colors.black,
-                onPressed: state.isLoading ? () {} : _signup,
+              const Spacer(),
+              Center(
+                child: AppButton(
+                  width: size.width,
+                  margin: const EdgeInsets.only(bottom: kToolbarHeight * 2),
+                  title: state.isLoading ? 'Загрузка...' : 'Создать',
+                  color: Colors.black,
+                  onPressed: state.isLoading ? () {} : _signup,
+                ),
               ),
             ],
           ),

@@ -5,6 +5,7 @@ class AuthorModel {
   final String name;
   final String email;
   final String role;
+  final String phoneNumber;
   final String createdAt;
   final ProfileModel? profile;
   final List<String>? courses;
@@ -15,6 +16,7 @@ class AuthorModel {
     required this.name,
     required this.email,
     required this.role,
+    required this.phoneNumber,
     required this.createdAt,
     this.profile,
     this.courses,

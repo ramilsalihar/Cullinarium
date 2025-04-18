@@ -10,6 +10,7 @@ class AuthMapper {
       'name': data.name,
       'email': data.email,
       'role': data.role,
+      'phoneNumber': data.phoneNumber,
       'createdAt': data.createdAt,
     };
   }
@@ -20,6 +21,7 @@ class AuthMapper {
       name: data['name'],
       email: data['email'],
       role: data['role'],
+      phoneNumber: data['phoneNumber'],
       createdAt: data['createdAt'],
     );
   }
@@ -30,6 +32,7 @@ class AuthMapper {
       name: data.name,
       email: data.email,
       role: data.role,
+      phoneNumber: data.phoneNumber,
       createdAt: data.createdAt,
     );
   }
@@ -41,6 +44,7 @@ class AuthMapper {
       'email': data.email,
       'role': data.role,
       'createdAt': data.createdAt,
+      'phoneNumber': data.phoneNumber,
       'profile': null,
       'chefDetails': null,
     };
@@ -52,6 +56,7 @@ class AuthMapper {
       name: data.name,
       email: data.email,
       role: data.role,
+      phoneNumber: data.phoneNumber,
       createdAt: data.createdAt,
     );
   }
@@ -62,6 +67,7 @@ class AuthMapper {
       'name': data.name,
       'email': data.email,
       'role': data.role,
+      'phoneNumber': data.phoneNumber,
       'createdAt': data.createdAt,
       'profile': null,
       'courses': null,
@@ -75,6 +81,7 @@ class AuthMapper {
       name: data.name,
       email: data.email,
       role: data.role,
+      phoneNumber: data.phoneNumber,
       createdAt: data.createdAt,
     );
   }
@@ -85,6 +92,7 @@ class AuthMapper {
       'name': data.name,
       'email': data.email,
       'role': data.role,
+      'phoneNumber': data.phoneNumber,
       'createdAt': data.createdAt,
       'preferences': null,
     };

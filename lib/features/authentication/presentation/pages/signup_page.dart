@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:cullinarium/core/widgets/buttons/app_button.dart';
 import 'package:cullinarium/features/authentication/presentation/widgets/forms/sign_up_form.dart';
+import 'package:cullinarium/features/authentication/presentation/widgets/forms/sign_up_type_form.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -28,66 +28,40 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
+      body: Stack(
         children: [
-          // Page 1 - Buttons
-          buildButtons(),
+          Image.asset(
+            'assets/layout/background.png',
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          ),
+          PageView(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: [
+              // Select role page
+              SignUpTypeForm(
+                onRoleSelected: (String selectedRole) {
+                  setState(() {
+                    role = selectedRole;
+                  });
+                  goToFormPage();
+                },
+              ),
 
-          // Page 2 - Registration form
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 24),
-              child: SignUpForm(
-                role: role,
-              )),
+              // Sign up form page
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 48, vertical: 24),
+                child: SignUpForm(
+                  role: role,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
-    );
-  }
-
-  Widget buildButtons() {
-    return Column(
-      children: [
-        const SizedBox(height: kToolbarHeight * 4),
-        IconButton(
-            onPressed: () {
-              context.router.pushNamed('/login');
-            },
-            icon: Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.black,
-            )),
-        AppButton(
-          title: 'User',
-          onPressed: () {
-            setState(() {
-              role = 'user';
-              goToFormPage();
-            });
-          },
-        ),
-        const SizedBox(height: 16),
-        AppButton(
-          title: 'Chef',
-          onPressed: () {
-            setState(() {
-              role = 'chef';
-              goToFormPage();
-            });
-          },
-        ),
-        const SizedBox(height: 16),
-        AppButton(
-          title: 'Author',
-          onPressed: () {
-            setState(() {
-              role = 'author';
-              goToFormPage();
-            });
-          },
-        ),
-      ],
     );
   }
 }

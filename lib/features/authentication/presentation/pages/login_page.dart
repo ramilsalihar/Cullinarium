@@ -1,9 +1,7 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:cullinarium/core/navigation/app_router.dart';
+import 'package:cullinarium/core/utils/snackbars/app_snackbars.dart';
 import 'package:cullinarium/features/authentication/presentation/cubit/auth_cubit.dart';
 import 'package:cullinarium/features/authentication/presentation/cubit/auth_state.dart';
-import 'package:cullinarium/features/authentication/presentation/widgets/user_switch.dart';
 import 'package:cullinarium/core/widgets/buttons/app_button.dart';
 import 'package:cullinarium/core/widgets/forms/app_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +15,7 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with AppSnackbars {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -25,27 +23,31 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(),
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
-          Image.asset(
+          Positioned(
+              child: Image.asset(
             'assets/layout/background.png',
             height: size.height,
             width: size.width,
             fit: BoxFit.cover,
-          ),
+          )),
           Positioned(
-            top: kToolbarHeight * 2.5,
-            child: Image.asset(
-              'assets/icons/app_logo.png',
-              width: size.width * 0.7,
-            ),
-          ),
-          Positioned(
-            bottom: 0,
+            bottom: kToolbarHeight,
             child: loginContent(),
           ),
+          Positioned(
+            top: kToolbarHeight,
+            left: 20,
+            child: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Colors.black,
+              ),
+            ),
+          )
         ],
       ),
     );
@@ -53,20 +55,14 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget loginContent() {
     final size = MediaQuery.of(context).size;
+    final theme = Theme.of(context);
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.error != null) {
-          // Show error message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.error!),
-              backgroundColor: Colors.red,
-            ),
+          showErrorSnackbar(
+            context: context,
+            message: state.error!,
           );
-        }
-        if (state.isAuthenticated) {
-          // Navigate to the main page
-          print('User authenticated: ${state.user}');
         }
       },
       child: SizedBox(
@@ -74,18 +70,21 @@ class _LoginPageState extends State<LoginPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: kToolbarHeight),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Image.asset(
+                'assets/icons/app_logo.png',
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: kToolbarHeight * 2),
               Text(
                 'Логин',
-                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                style: theme.textTheme.displayLarge!.copyWith(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(height: 10),
-              const UserSwitch(),
-              const SizedBox(height: 10),
+              const SizedBox(height: 24),
               AppTextFormField(
                 title: 'Email',
                 controller: emailController,
@@ -101,17 +100,19 @@ class _LoginPageState extends State<LoginPage> {
                 child: const Text('Забыли пароль?'),
               ),
               const SizedBox(height: 10),
-              AppButton(
-                title: 'Войти',
-                color: Colors.black,
-                onPressed: () {
-                  context.read<AuthCubit>().signIn(
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
-                  // context.router.back();
-                },
+              Center(
+                child: AppButton(
+                  title: 'Войти',
+                  color: Colors.black,
+                  onPressed: () {
+                    context.read<AuthCubit>().signIn(
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
+                  },
+                ),
               ),
+              const SizedBox(height: kToolbarHeight),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
