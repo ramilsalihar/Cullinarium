@@ -11,6 +11,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  injections();
+  await injections();
   runApp(const App());
 }

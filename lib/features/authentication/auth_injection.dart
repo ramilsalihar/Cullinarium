@@ -2,7 +2,7 @@ import 'package:cullinarium/core/di/injections.dart';
 import 'package:cullinarium/features/authentication/data/datasource/remote/auth_service.dart';
 import 'package:cullinarium/features/authentication/presentation/cubit/auth_cubit.dart';
 
-void authInjection() {
+Future<void> authInjection() async {
   // Register DataSource
   sl.registerLazySingleton<AuthService>(() => AuthService(
         sl(),

@@ -25,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(),
       body: Stack(
         alignment: Alignment.topCenter,
         children: [
@@ -63,13 +64,9 @@ class _LoginPageState extends State<LoginPage> {
             ),
           );
         }
-
         if (state.isAuthenticated) {
-          print('User authenticated: ${state.user!.name}');
-          // Navigate to home or profile completion page
-          context.router.replace(
-            const ProfileRoute(),
-          );
+          // Navigate to the main page
+          print('User authenticated: ${state.user}');
         }
       },
       child: SizedBox(
@@ -112,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                         email: emailController.text,
                         password: passwordController.text,
                       );
+                  // context.router.back();
                 },
               ),
               Row(

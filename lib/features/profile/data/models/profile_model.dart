@@ -15,7 +15,7 @@ class ProfileModel {
     required this.jobExperience,
     required this.location,
     required this.phoneNumber,
-    required this.profilePicture,
+    this.profilePicture,
     this.instagram,
     this.categories,
     this.languages,

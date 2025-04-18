@@ -2,6 +2,7 @@ import 'package:cullinarium/core/di/injections.dart';
 import 'package:cullinarium/core/navigation/app_router.dart';
 import 'package:cullinarium/core/theme/app_theme.dart';
 import 'package:cullinarium/features/authentication/presentation/cubit/auth_cubit.dart';
+import 'package:cullinarium/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +16,7 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<AuthCubit>()),
+        BlocProvider(create: (_) => sl<ProfileCubit>()),
       ],
       child: MaterialApp.router(
         title: 'Culinarium',

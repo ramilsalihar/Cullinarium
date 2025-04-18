@@ -16,6 +16,9 @@ class AuthService {
   // Get current authenticated user
   User? get currentUser => _auth.currentUser;
 
+  // Stream to listen to auth state changes
+  Stream<User?> get authChanges => _auth.authStateChanges();
+
   // Sign up with email and password
   Future<dynamic> signUp({
     required String email,
@@ -24,7 +27,6 @@ class AuthService {
     required String role,
   }) async {
     try {
-      // Create user with email and password
       UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -182,7 +184,7 @@ class AuthService {
   }
 
   // Get current user data
-  Future<AuthModel?> getCurrentUserData() async {
+  Future<dynamic> getCurrentUserData() async {
     User? user = _auth.currentUser;
 
     if (user == null) {
@@ -190,47 +192,46 @@ class AuthService {
     }
 
     try {
-      DocumentSnapshot doc =
-          await _firestore.collection('users').doc(user.uid).get();
+      dynamic userData;
 
-      if (!doc.exists) {
+      final possibleCollections = [
+        AppConsts.chefsCollection,
+        AppConsts.authorsCollection,
+        AppConsts.usersCollection,
+      ];
+
+      DocumentSnapshot? userDoc;
+
+      for (final collection in possibleCollections) {
+        final doc = await _firestore.collection(collection).doc(user.uid).get();
+        if (doc.exists) {
+          userDoc = doc;
+          break;
+        }
+      }
+
+      if (userDoc == null || !userDoc.exists) {
         return null;
       }
 
-      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-
-      return AuthModel(
-        id: user.uid,
-        name: data['name'] ?? '',
-        email: data['email'] ?? '',
-        role: data['role'] ?? '',
-        createdAt: data['createdAt']?.toDate().toIso8601String() ?? '',
-      );
-    } catch (e) {
-      throw _handleAuthException(e);
-    }
-  }
-
-  // Update user profile
-  Future<void> updateProfile({
-    String? name,
-    String? type,
-  }) async {
-    User? user = _auth.currentUser;
-
-    if (user == null) {
-      throw Exception('No user is currently signed in');
-    }
-
-    try {
-      Map<String, dynamic> updateData = {};
-
-      if (name != null) updateData['name'] = name;
-      if (type != null) updateData['type'] = type;
-
-      if (updateData.isNotEmpty) {
-        await _firestore.collection('users').doc(user.uid).update(updateData);
+      if (userDoc.exists) {
+        Map<String, dynamic> data = userDoc.data() as Map<String, dynamic>;
+        switch (data['role']) {
+          case 'chef':
+            userData = ChefMapper.fromJson(data);
+            break;
+          case 'author':
+            userData = AuthorMapper.fromJson(data);
+            break;
+          case 'user':
+            userData = UserMapper.fromJson(data);
+            break;
+          default:
+            userData = AuthMapper.fromJson(data);
+        }
       }
+
+      return userData;
     } catch (e) {
       throw _handleAuthException(e);
     }
