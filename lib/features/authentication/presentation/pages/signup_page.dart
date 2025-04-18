@@ -25,6 +25,14 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
+  void goToRolePage() {
+    _pageController.animateToPage(
+      0,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +64,7 @@ class _SignupPageState extends State<SignupPage> {
                     const EdgeInsets.symmetric(horizontal: 48, vertical: 24),
                 child: SignUpForm(
                   role: role,
+                  backButtonCallback: goToRolePage,
                 ),
               ),
             ],

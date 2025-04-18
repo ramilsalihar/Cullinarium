@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cullinarium/core/theme/app_colors.dart';
 import 'package:cullinarium/core/utils/snackbars/app_snackbars.dart';
 import 'package:cullinarium/core/widgets/buttons/app_button.dart';
@@ -9,9 +8,14 @@ import 'package:cullinarium/features/authentication/presentation/cubit/auth_cubi
 import 'package:cullinarium/features/authentication/presentation/cubit/auth_state.dart';
 
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({super.key, required this.role});
+  const SignUpForm({
+    super.key,
+    required this.role,
+    this.backButtonCallback,
+  });
 
   final String role;
+  final VoidCallback? backButtonCallback;
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();
@@ -95,7 +99,7 @@ class _SignUpFormState extends State<SignUpForm> with AppSnackbars {
             children: [
               const SizedBox(height: kToolbarHeight),
               GestureDetector(
-                onTap: () => context.router.back(),
+                onTap: () => widget.backButtonCallback?.call(),
                 child: const Icon(
                   Icons.arrow_back_ios_new_outlined,
                   color: Colors.black,

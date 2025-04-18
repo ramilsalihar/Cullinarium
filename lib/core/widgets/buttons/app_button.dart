@@ -28,7 +28,7 @@ class AppButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         width: width,
-        margin: margin ?? const EdgeInsets.all(24),
+        margin: margin,
         padding: padding ??
             const EdgeInsets.symmetric(
               horizontal: 16,

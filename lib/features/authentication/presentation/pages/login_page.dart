@@ -103,8 +103,17 @@ class _LoginPageState extends State<LoginPage> with AppSnackbars {
               Center(
                 child: AppButton(
                   title: 'Войти',
+                  width: size.width,
                   color: Colors.black,
                   onPressed: () {
+                    if (emailController.text.isEmpty ||
+                        passwordController.text.isEmpty) {
+                      showErrorSnackbar(
+                        context: context,
+                        message: 'Заполните все поля',
+                      );
+                      return;
+                    }
                     context.read<AuthCubit>().signIn(
                           email: emailController.text,
                           password: passwordController.text,
