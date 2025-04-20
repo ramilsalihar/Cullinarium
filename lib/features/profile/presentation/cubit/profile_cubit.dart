@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:cullinarium/features/profile/data/datasources/profile_service.dart';
 import 'package:cullinarium/features/profile/data/models/author_model.dart';
 import 'package:cullinarium/features/profile/data/models/chefs/chef_model.dart';
 import 'package:cullinarium/features/profile/data/models/user_model.dart';
@@ -19,39 +18,32 @@ class ProfileCubit extends Cubit<ProfileState> {
   })  : _authCubit = authCubit,
         profileRepository = profileService,
         super(ProfileInitial()) {
-    _initialize();
+    initialize();
     _authCubit.stream.listen((authState) {
       if (authState.isAuthenticated && authState.user != null) {
-        _loadProfile(authState.user!);
+        loadProfile(authState.user!);
       } else {
         emit(const ProfileError("User not authenticated"));
       }
     });
   }
 
-  void _initialize() {
+  void initialize() {
     final user = _authCubit.state.user;
     if (user != null) {
-      _loadProfile(user);
+      loadProfile(user);
     } else {
       emit(const ProfileError("User not authenticated"));
     }
   }
 
-  Future<void> _loadProfile(dynamic user) async {
+  Future<void> loadProfile(dynamic user) async {
     emit(ProfileLoading());
     try {
       emit(ProfileLoaded(user, userType: user.role));
     } catch (e) {
       emit(ProfileError(e.toString()));
     }
-  }
-
-  // Helper method to get user ID from different user object types
-  String _getUserId(dynamic user) {
-    if (user is Map) return user['id'].toString();
-    // if (user is ) return user.id.toString();
-    throw Exception('Unsupported user type');
   }
 
   Future<void> updateUserData(UserModel user) async {
@@ -61,7 +53,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
     try {
       final updatedUser = await profileRepository.updateUserData(
-        userId: _getUserId(user.id),
+        userId: user.id,
         userData: user,
       );
       emit(
@@ -80,7 +72,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     required ChefModel chef,
   }) async {
     final updatedChef = await profileRepository.updateChefData(
-      uid: _getUserId(chef),
+      uid: chef.id,
       chefData: chef,
     );
 
@@ -91,7 +83,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     required AuthorModel author,
   }) async {
     final updatedAuthor = await profileRepository.updateAuthorData(
-      uid: _getUserId(author),
+      uid: author.id,
       authorData: author,
     );
 

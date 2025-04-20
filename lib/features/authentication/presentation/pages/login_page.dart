@@ -92,6 +92,7 @@ class _LoginPageState extends State<LoginPage> with AppSnackbars {
               const SizedBox(height: 10),
               AppTextFormField(
                 title: 'Пароль',
+                obscureText: true,
                 controller: passwordController,
               ),
               const SizedBox(height: 10),

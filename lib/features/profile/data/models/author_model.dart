@@ -22,4 +22,28 @@ class AuthorModel {
     this.courses,
     this.recipes,
   });
+
+  AuthorModel copyWith({
+    String? id,
+    String? name,
+    String? email,
+    String? role,
+    String? phoneNumber,
+    String? createdAt,
+    ProfileModel? profile,
+    List<String>? courses,
+    List<String>? recipes,
+  }) {
+    return AuthorModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      role: role ?? this.role,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      createdAt: createdAt ?? this.createdAt,
+      profile: profile ?? this.profile,
+      courses: courses ?? this.courses,
+      recipes: recipes ?? this.recipes,
+    );
+  }
 }

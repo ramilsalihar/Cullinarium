@@ -21,4 +21,26 @@ class ChefModel {
     this.profile,
     this.chefDetails,
   });
+
+  ChefModel copyWith({
+    String? id,
+    String? name,
+    String? email,
+    String? role,
+    String? phoneNumber,
+    String? createdAt,
+    ProfileModel? profile,
+    ChefDetailsModel? chefDetails,
+  }) {
+    return ChefModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      role: role ?? this.role,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      createdAt: createdAt ?? this.createdAt,
+      profile: profile ?? this.profile,
+      chefDetails: chefDetails ?? this.chefDetails,
+    );
+  }
 }

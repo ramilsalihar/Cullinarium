@@ -1,3 +1,4 @@
+import 'package:cullinarium/core/data/services/user_service.dart';
 import 'package:cullinarium/core/theme/app_colors.dart';
 import 'package:cullinarium/core/utils/snackbars/app_snackbars.dart';
 import 'package:cullinarium/core/widgets/buttons/app_button.dart';
@@ -62,21 +63,6 @@ class _SignUpFormState extends State<SignUpForm> with AppSnackbars {
     }
   }
 
-  String getUserType() {
-    switch (widget.role) {
-      case 'guest':
-        return 'Гость';
-      case 'chef':
-        return 'Шеф-повар';
-      case 'author':
-        return 'Автор';
-      case 'user':
-        return 'Пользователь';
-      default:
-        return '';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -115,7 +101,7 @@ class _SignUpFormState extends State<SignUpForm> with AppSnackbars {
                   ),
                   children: [
                     TextSpan(
-                      text: getUserType(),
+                      text: UserService.getRoleDisplayName(widget.role),
                       style: theme.textTheme.displayLarge!.copyWith(
                         color: AppColors.primary,
                         fontWeight: FontWeight.bold,

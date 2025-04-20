@@ -9,7 +9,10 @@ class ProfileService {
     required String userId,
     required Map<String, dynamic> data,
   }) async {
-    await _firestore.collection(data['role']).doc(userId).update(data);
+    await _firestore
+        .collection(AppConsts.usersCollection)
+        .doc(userId)
+        .update(data);
   }
 
   // Update Chef data

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppTextFormField extends StatelessWidget {
+class AppTextFormField extends StatefulWidget {
   const AppTextFormField({
     super.key,
     required this.title,
@@ -19,30 +19,59 @@ class AppTextFormField extends StatelessWidget {
   final bool obscureText;
 
   @override
+  State<AppTextFormField> createState() => _AppTextFormFieldState();
+}
+
+class _AppTextFormFieldState extends State<AppTextFormField> {
+  bool _isObscured = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _isObscured = widget.obscureText;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.1),
-          blurRadius: 10,
-          offset: const Offset(0, 5),
-        ),
-      ]),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
       child: TextFormField(
-        obscureText: obscureText,
-        controller: controller,
+        obscureText: _isObscured,
+        controller: widget.controller,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          hintText: title,
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
+          hintText: widget.title,
+          prefixIcon: widget.prefixIcon,
+          suffixIcon: widget.suffixIcon ??
+              (widget.obscureText
+                  ? IconButton(
+                      icon: Icon(
+                        _isObscured
+                            ? Icons.visibility_rounded
+                            : Icons.visibility_off_rounded,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isObscured = !_isObscured;
+                        });
+                      },
+                    )
+                  : null),
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(35),
           ),
         ),
-        keyboardType: keyboardType,
+        keyboardType: widget.keyboardType,
       ),
     );
   }

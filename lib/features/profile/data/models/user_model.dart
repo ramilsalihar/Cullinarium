@@ -16,4 +16,24 @@ class UserModel {
     required this.phoneNumber,
     this.preferences,
   });
+
+  UserModel copyWith({
+    String? id,
+    String? name,
+    String? email,
+    String? role,
+    String? createdAt,
+    String? phoneNumber,
+    List<String>? preferences,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      role: role ?? this.role,
+      createdAt: createdAt ?? this.createdAt,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      preferences: preferences ?? this.preferences,
+    );
+  }
 }
