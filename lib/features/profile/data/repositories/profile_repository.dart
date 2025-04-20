@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cullinarium/features/profile/data/datasources/profile_service.dart';
 import 'package:cullinarium/features/profile/data/mappers/author_mapper.dart';
 import 'package:cullinarium/features/profile/data/mappers/chef_mapper.dart';
@@ -35,5 +37,17 @@ class ProfileRepository {
     await _profileService.updateAuthorData(
         uid, AuthorMapper.toJson(authorData));
     return authorData;
+  }
+
+  Future<String> uploadProfileImage({
+    required File imageFile,
+    required String userId,
+    required String userType,
+  }) async {
+    return await _profileService.uploadProfileImage(
+      imageFile: imageFile,
+      userId: userId,
+      userType: userType,
+    );
   }
 }

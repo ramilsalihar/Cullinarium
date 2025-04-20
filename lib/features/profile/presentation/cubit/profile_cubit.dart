@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:cullinarium/features/profile/data/models/author_model.dart';
 import 'package:cullinarium/features/profile/data/models/chefs/chef_model.dart';
@@ -56,6 +58,8 @@ class ProfileCubit extends Cubit<ProfileState> {
         userId: user.id,
         userData: user,
       );
+
+      loadProfile(updatedUser);
       emit(
         ProfileLoaded(
           updatedUser,
@@ -76,6 +80,8 @@ class ProfileCubit extends Cubit<ProfileState> {
       chefData: chef,
     );
 
+    loadProfile(updatedChef);
+
     emit(ProfileLoaded(updatedChef, userType: 'chef'));
   }
 
@@ -87,6 +93,47 @@ class ProfileCubit extends Cubit<ProfileState> {
       authorData: author,
     );
 
+    loadProfile(updatedAuthor);
+
     emit(ProfileLoaded(updatedAuthor, userType: 'author'));
+  }
+
+  Future<void> updateProfileImage({
+    required File imageFile,
+    required String userType,
+  }) async {
+    if (state is! ProfileLoaded) return;
+
+    final currentUser = (state as ProfileLoaded).user;
+
+    emit(ProfileLoaded(currentUser, userType: userType));
+
+    try {
+      final userId = currentUser.id;
+      final imageUrl = await profileRepository.uploadProfileImage(
+        imageFile: imageFile,
+        userId: userId,
+        userType: userType,
+      );
+
+      // Optionally refresh the profile with new image URL
+      final updatedUser = _mergeImageUrl(currentUser, imageUrl, userType);
+      emit(ProfileLoaded(updatedUser, userType: userType));
+    } catch (e) {
+      emit(ProfileError(e.toString()));
+    }
+  }
+
+  dynamic _mergeImageUrl(dynamic user, String imageUrl, String type) {
+    switch (type) {
+      case 'user':
+        return (user as UserModel).copyWith(avatar: imageUrl);
+      case 'chef':
+        return (user as ChefModel).copyWith(avatar: imageUrl);
+      case 'author':
+        return (user as AuthorModel).copyWith(avatar: imageUrl);
+      default:
+        throw Exception('Unknown user type');
+    }
   }
 }

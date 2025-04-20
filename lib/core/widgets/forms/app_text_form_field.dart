@@ -4,6 +4,7 @@ class AppTextFormField extends StatefulWidget {
   const AppTextFormField({
     super.key,
     required this.title,
+    this.hintext,
     required this.controller,
     this.prefixIcon,
     this.suffixIcon,
@@ -12,6 +13,7 @@ class AppTextFormField extends StatefulWidget {
   });
 
   final String title;
+  final String? hintext;
   final TextEditingController controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -37,7 +39,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.grey.shade300,
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),

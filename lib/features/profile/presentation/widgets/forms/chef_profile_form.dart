@@ -3,13 +3,8 @@ import 'package:cullinarium/features/profile/data/models/chefs/chef_model.dart';
 import 'package:flutter/material.dart';
 
 class ChefProfileForm extends StatefulWidget {
-  final ChefModel chef;
-  final Function(Map<String, dynamic>) onSave;
-
   const ChefProfileForm({
     super.key,
-    required this.chef,
-    required this.onSave,
   });
 
   @override
@@ -24,49 +19,47 @@ class _ChefProfileFormState extends State<ChefProfileForm> {
   @override
   void initState() {
     super.initState();
-    _specialtyController = TextEditingController(
-      text: widget.chef.profile?.description ?? '',
-    );
-    _experienceController = TextEditingController(
-      text: widget.chef.profile?.description ?? '',
-    );
+    _specialtyController = TextEditingController();
+    _experienceController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          'Chef Profile',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        const SizedBox(height: 20),
-        TextField(
-          controller: _specialtyController,
-          decoration: InputDecoration(
-            labelText: 'Specialty',
-            border: const OutlineInputBorder(),
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            'Chef Profile',
+            style: Theme.of(context).textTheme.titleLarge,
           ),
-        ),
-        const SizedBox(height: 15),
-        TextField(
-          controller: _experienceController,
-          decoration: InputDecoration(
-            labelText: 'Experience',
-            border: const OutlineInputBorder(),
+          const SizedBox(height: 20),
+          TextField(
+            controller: _specialtyController,
+            decoration: InputDecoration(
+              labelText: 'Specialty',
+              border: const OutlineInputBorder(),
+            ),
           ),
-          keyboardType: TextInputType.number,
-        ),
-        const SizedBox(height: 15),
-        // Cuisine selection widget would go here
-        // This would be a custom widget for multi-select
-        const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: _saveProfile,
-          child: const Text('Save Profile'),
-        ),
-      ],
+          const SizedBox(height: 15),
+          TextField(
+            controller: _experienceController,
+            decoration: InputDecoration(
+              labelText: 'Experience',
+              border: const OutlineInputBorder(),
+            ),
+            keyboardType: TextInputType.number,
+          ),
+          const SizedBox(height: 15),
+          // Cuisine selection widget would go here
+          // This would be a custom widget for multi-select
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: _saveProfile,
+            child: const Text('Save Profile'),
+          ),
+        ],
+      ),
     );
   }
 
@@ -76,7 +69,7 @@ class _ChefProfileFormState extends State<ChefProfileForm> {
       'experience': _experienceController.text,
       'cuisines': _selectedCuisines,
     };
-    widget.onSave(data);
+    // widget.onSave(data);
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:cullinarium/core/theme/app_colors.dart';
 import 'package:cullinarium/features/profile/presentation/cubit/profile_cubit.dart';
-import 'package:cullinarium/features/profile/presentation/pages/profile_edit_page.dart';
+import 'package:cullinarium/features/profile/presentation/pages/personal_details_edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -92,7 +92,8 @@ class PersonalDataCard extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => ProfileEditPage(),
+                              builder: (context) =>
+                                  const PersonalDetailsEditPage(),
                             ),
                           );
                         },

@@ -8,6 +8,7 @@ class UserMapper {
       'email': user.email,
       'role': user.role,
       'phoneNumber': user.phoneNumber,
+      'avatar': user.avatar,
       'createdAt': user.createdAt,
       'preferences': user.preferences,
     };
@@ -21,6 +22,7 @@ class UserMapper {
       role: json['role'],
       createdAt: json['createdAt'],
       phoneNumber: json['phoneNumber'],
+      avatar: json['avatar'],
       preferences: json['preferences'] != null
           ? (json['preferences'] as List<dynamic>).cast<String>()
           : null,

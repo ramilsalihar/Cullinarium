@@ -5,6 +5,7 @@ class UserModel {
   final String role;
   final String createdAt;
   final String phoneNumber;
+  final String? avatar;
   final List<String>? preferences;
 
   const UserModel({
@@ -14,6 +15,7 @@ class UserModel {
     required this.role,
     required this.createdAt,
     required this.phoneNumber,
+    this.avatar,
     this.preferences,
   });
 
@@ -24,6 +26,7 @@ class UserModel {
     String? role,
     String? createdAt,
     String? phoneNumber,
+    String? avatar,
     List<String>? preferences,
   }) {
     return UserModel(
@@ -33,6 +36,7 @@ class UserModel {
       role: role ?? this.role,
       createdAt: createdAt ?? this.createdAt,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      avatar: avatar ?? this.avatar,
       preferences: preferences ?? this.preferences,
     );
   }

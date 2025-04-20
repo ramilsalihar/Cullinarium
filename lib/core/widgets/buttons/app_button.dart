@@ -11,6 +11,7 @@ class AppButton extends StatelessWidget {
     this.width = 200,
     this.margin,
     this.padding,
+    this.isDisabled = false,
   });
 
   final String title;
@@ -20,12 +21,13 @@ class AppButton extends StatelessWidget {
   final double width;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
+  final bool isDisabled;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return GestureDetector(
-      onTap: onPressed,
+      onTap: isDisabled ? null : onPressed,
       child: Container(
         width: width,
         margin: margin,
@@ -35,7 +37,7 @@ class AppButton extends StatelessWidget {
               vertical: 10,
             ),
         decoration: BoxDecoration(
-          color: color ?? AppColors.primary,
+          color: isDisabled ? Colors.grey : (color ?? AppColors.primary),
           borderRadius: BorderRadius.circular(24),
         ),
         child: Center(
@@ -43,7 +45,7 @@ class AppButton extends StatelessWidget {
             title,
             style: textStyle ??
                 theme.textTheme.headlineSmall!.copyWith(
-                  color: Colors.white,
+                  color: isDisabled ? Colors.black38 : Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
           ),

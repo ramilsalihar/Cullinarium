@@ -32,3 +32,32 @@ class ProfileError extends ProfileState {
   @override
   List<Object> get props => [message];
 }
+
+class ProfileImagePicked extends ProfileState {
+  final File? imageFile;
+
+  const ProfileImagePicked(this.imageFile);
+
+  @override
+  List<Object> get props => [imageFile!];
+}
+
+class ProfileImageUploading extends ProfileState {}
+
+class ProfileImageUploaded extends ProfileState {
+  final String imageUrl;
+
+  const ProfileImageUploaded(this.imageUrl);
+
+  @override
+  List<Object> get props => [imageUrl];
+}
+
+class ProfileImageUploadError extends ProfileState {
+  final String message;
+
+  const ProfileImageUploadError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

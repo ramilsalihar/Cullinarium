@@ -6,7 +6,8 @@ class AuthorModel {
   final String email;
   final String role;
   final String phoneNumber;
-  final String createdAt;
+  final String? avatar;
+  final String? createdAt;
   final ProfileModel? profile;
   final List<String>? courses;
   final List<String>? recipes;
@@ -17,7 +18,8 @@ class AuthorModel {
     required this.email,
     required this.role,
     required this.phoneNumber,
-    required this.createdAt,
+    this.avatar,
+    this.createdAt,
     this.profile,
     this.courses,
     this.recipes,
@@ -29,6 +31,7 @@ class AuthorModel {
     String? email,
     String? role,
     String? phoneNumber,
+    String? avatar,
     String? createdAt,
     ProfileModel? profile,
     List<String>? courses,
@@ -40,6 +43,7 @@ class AuthorModel {
       email: email ?? this.email,
       role: role ?? this.role,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      avatar: avatar ?? this.avatar,
       createdAt: createdAt ?? this.createdAt,
       profile: profile ?? this.profile,
       courses: courses ?? this.courses,

@@ -4,20 +4,22 @@ import 'package:cullinarium/core/widgets/forms/app_text_form_field.dart';
 import 'package:cullinarium/features/profile/data/models/author_model.dart';
 import 'package:cullinarium/features/profile/data/models/chefs/chef_model.dart';
 import 'package:cullinarium/features/profile/data/models/user_model.dart';
-import 'package:cullinarium/features/profile/presentation/widgets/picker/image_picker.dart';
+import 'package:cullinarium/features/profile/presentation/widgets/picker/profile_image_picker.dart';
 import 'package:cullinarium/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cullinarium/core/theme/app_colors.dart';
 
-class ProfileEditPage extends StatefulWidget {
-  const ProfileEditPage({super.key});
+class PersonalDetailsEditPage extends StatefulWidget {
+  const PersonalDetailsEditPage({super.key});
 
   @override
-  State<ProfileEditPage> createState() => _ProfileEditPageState();
+  State<PersonalDetailsEditPage> createState() =>
+      _PersonalDetailsEditPageState();
 }
 
-class _ProfileEditPageState extends State<ProfileEditPage> with AppSnackbars {
+class _PersonalDetailsEditPageState extends State<PersonalDetailsEditPage>
+    with AppSnackbars {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -31,12 +33,12 @@ class _ProfileEditPageState extends State<ProfileEditPage> with AppSnackbars {
 
     // If state is already loaded, fill fields immediately
     final profileState = context.read<ProfileCubit>().state;
-    if (profileState is ProfileLoaded && profileState.user is UserModel) {
-      _populateFields(profileState.user as UserModel);
+    if (profileState is ProfileLoaded) {
+      _populateFields(profileState.user);
     }
   }
 
-  void _populateFields(UserModel user) {
+  void _populateFields(dynamic user) {
     _nameController.text = user.name;
     _emailController.text = user.email;
     _phoneController.text = user.phoneNumber;
@@ -116,7 +118,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> with AppSnackbars {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Редактирование профиля'),
+          title: const Text('Изменить профиль'),
           elevation: 0,
           backgroundColor: AppColors.primary,
           foregroundColor: Colors.white,
@@ -131,33 +133,45 @@ class _ProfileEditPageState extends State<ProfileEditPage> with AppSnackbars {
           builder: (context, state) {
             if (state is ProfileLoading) {
               return const Center(child: CircularProgressIndicator());
-            }
-
-            return SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ImagePicker(onImagePicked: (_) {}),
-                      const SizedBox(height: 32),
-                      _buildPersonalInfoSection(),
-                      const SizedBox(height: 32),
-                      _buildContactInfoSection(),
-                      const SizedBox(height: 40),
-                      AppButton(
-                        title: 'Сохранить изменения',
-                        margin: EdgeInsets.zero,
-                        width: double.infinity,
-                        onPressed: _isLoading ? () {} : _saveProfile,
-                      ),
-                    ],
+            } else if (state is ProfileLoaded) {
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ProfileImagePicker(
+                          imageUrl: state.user.avatar,
+                          onImagePicked: (file) {
+                            if (file != null) {
+                              context.read<ProfileCubit>().updateProfileImage(
+                                    imageFile: file,
+                                    userType: state.userType,
+                                  );
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 32),
+                        _buildPersonalInfoSection(),
+                        const SizedBox(height: 32),
+                        _buildContactInfoSection(),
+                        const SizedBox(height: 40),
+                        AppButton(
+                          title: 'Сохранить изменения',
+                          margin: EdgeInsets.zero,
+                          width: double.infinity,
+                          onPressed: _isLoading ? () {} : _saveProfile,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
+              );
+            } else {
+              return const Center(child: Text('Ошибка загрузки профиля'));
+            }
           },
         ),
       ),

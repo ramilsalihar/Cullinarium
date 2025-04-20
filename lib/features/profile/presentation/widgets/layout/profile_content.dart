@@ -1,8 +1,9 @@
 import 'package:cullinarium/features/profile/presentation/cubit/profile_cubit.dart';
-import 'package:cullinarium/features/profile/presentation/pages/personal_detail_page.dart';
+import 'package:cullinarium/features/profile/presentation/pages/my_profile_page.dart';
 import 'package:cullinarium/features/profile/presentation/widgets/buttons/logout_button.dart';
 import 'package:cullinarium/features/profile/presentation/widgets/cards/personal_data_card.dart';
 import 'package:cullinarium/features/profile/presentation/widgets/cards/profile_card.dart';
+import 'package:cullinarium/features/profile/presentation/widgets/forms/chef_profile_form.dart';
 import 'package:flutter/material.dart';
 
 class ProfileContent extends StatelessWidget {
@@ -21,6 +22,26 @@ class ProfileContent extends StatelessWidget {
           const PersonalDataCard(),
           const SizedBox(height: 24),
 
+          // Profile section
+          if (state.userType == 'chef' || state.userType == 'author') ...[
+            _buildSectionHeader(context, 'Профиль'),
+            const SizedBox(height: 8),
+            ProfileCard(
+              icon: Icons.restaurant,
+              title: 'Мой профиль',
+              subtitle: 'Управление вашим профилем и личной информацией',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => MyProfilePage(),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 24),
+          ],
+
           // Role-specific sections
           if (state.userType == 'chef') ...[
             _buildSectionHeader(context, 'Профессиональная информация'),
@@ -34,7 +55,7 @@ class ProfileContent extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => PersonalDetailPage(onSave: (data) {}),
+                    builder: (_) => const ChefProfileForm(),
                   ),
                 );
               },

@@ -7,7 +7,8 @@ class ChefModel {
   final String email;
   final String role;
   final String phoneNumber;
-  final String createdAt;
+  final String? avatar;
+  final String? createdAt;
   final ProfileModel? profile;
   final ChefDetailsModel? chefDetails;
 
@@ -17,7 +18,8 @@ class ChefModel {
     required this.email,
     required this.role,
     required this.phoneNumber,
-    required this.createdAt,
+    this.avatar,
+    this.createdAt,
     this.profile,
     this.chefDetails,
   });
@@ -28,6 +30,7 @@ class ChefModel {
     String? email,
     String? role,
     String? phoneNumber,
+    String? avatar,
     String? createdAt,
     ProfileModel? profile,
     ChefDetailsModel? chefDetails,
@@ -38,6 +41,7 @@ class ChefModel {
       email: email ?? this.email,
       role: role ?? this.role,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      avatar: avatar ?? this.avatar,
       createdAt: createdAt ?? this.createdAt,
       profile: profile ?? this.profile,
       chefDetails: chefDetails ?? this.chefDetails,

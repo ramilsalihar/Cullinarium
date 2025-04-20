@@ -9,6 +9,7 @@ class AuthorMapper {
       'email': author.email,
       'role': author.role,
       'phoneNumber': author.phoneNumber,
+      'avatar': author.avatar,
       'createdAt': author.createdAt,
       'profile':
           author.profile != null ? ProfileMapper.toJson(author.profile!) : null,
@@ -24,6 +25,7 @@ class AuthorMapper {
       email: json['email'],
       role: json['role'],
       phoneNumber: json['phoneNumber'],
+      avatar: json['avatar'],
       createdAt: json['createdAt'],
       profile: json['profile'] != null
           ? ProfileMapper.fromJson(json['profile'])

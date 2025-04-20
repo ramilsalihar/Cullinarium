@@ -10,4 +10,8 @@ class AppConsts {
   static const String usersCollection = 'users';
   static const String chefsCollection = 'chefs';
   static const String authorsCollection = 'authors';
+
+  // External links
+  static const String whatsApp = 'https://wa.me/';
+  static const String instagram = 'https://instagram.com/';
 }
